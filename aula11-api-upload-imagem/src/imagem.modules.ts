@@ -5,4 +5,5 @@ import { imagemController } from "./imagem.controller.js";
     controllers:[imagemController,]
 })
 
+
 export class ImagemModule{}
