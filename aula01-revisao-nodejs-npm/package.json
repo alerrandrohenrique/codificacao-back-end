@@ -9,7 +9,5 @@
   "keywords": [],
   "author": "Alerrandro Henrique Queiroz Dos  Santos",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "module"
 }
-
-
