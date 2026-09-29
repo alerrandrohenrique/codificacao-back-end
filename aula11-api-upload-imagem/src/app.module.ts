@@ -8,3 +8,4 @@ import { imagemController } from './imagem.controller.js';
   providers: [AppService],
 })
 export class AppModule {}
+
