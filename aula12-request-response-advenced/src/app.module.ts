@@ -9,3 +9,4 @@ import { SegurancaController } from './seguranca.controller.js';
   providers: [AppService],
 })
 export class AppModule {}
+
