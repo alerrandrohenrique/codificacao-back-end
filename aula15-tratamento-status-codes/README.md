@@ -95,3 +95,6 @@ Implementar rotas de listagem e busca de produtos com validação de parâmetros
 ---
 
 🏁 Aplicação funcionando com tratamento completo de fluxos: dados encontrados, ID inválido e produto inexistente — todos com retorno padronizado e logs no terminal.
+
+
+
