@@ -1,124 +1,97 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
 ```
+📊 Aula 15 — Tratamento de Códigos de Status e Exceções no NestJS
 
-## Compile and run the project
+🎯 Objetivo
+Implementar rotas de listagem e busca de produtos com validação de parâmetros, tratamento personalizado de erros e retorno de códigos HTTP adequados, seguindo as boas práticas de APIs REST no ecossistema NestJS.
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+✅ O que foi feito
 
-# production mode
-$ npm run start:prod
-```
+📂 1. Estrutura do Projeto
+• `app.controller.ts` — Controlador principal com rota raiz de verificação
+• `produtos.controller.ts` — Controlador de rotas de produtos com parâmetro dinâmico
+• `produtos.service.ts` — Serviço com lista de produtos em memória e regra de negócio
+• `app.module.ts` — Módulo raiz registrando controladores e provedores
 
-## Run tests
+🔧 2. Serviço de Produtos
+• Criação de lista com produtos contendo `id`, `nome` e `preco`
+• Método `listaProdutos()` que retorna todos os cadastrados
+• Dados de exemplo: Arroz Namorados, Feijão Timbiras, Macarrão Galo, Açúcar União e Sal Lebre
 
-```bash
-# unit tests
-$ npm run test
+🛣️ 3. Rotas Implementadas
 
-# e2e tests
-$ npm run test:e2e
+| Método | Rota | Ação |
+|---|---|---|
+| GET | / | Mensagem de confirmação da aplicação |
+| GET | /produtos | Retorna todos os produtos cadastrados |
+| GET | /produtos/:id | Busca produto pelo ID informado na URL |
 
-# test coverage
-$ npm run test:cov
-```
+✅ 4. Validações e Tratamento de Erros
 
-## Deployment
+🔹 Validação de Tipo do ID
+• Conversão do parâmetro `:id` para número
+• Se não for numérico → registro de aviso no log + `BadRequestException` (400)
+• Mensagem: "O ID do produto deve ser um número inteiro."
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+🔹 Validação de Existência
+• Busca na lista comparando `id === valorConvertido`
+• Se não encontrado → registro de aviso no log + `NotFoundException` (404)
+• Mensagem personalizada com o ID não localizado
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+🔹 Logs Informativos
+• Uso de `Logger` nativo do NestJS para registrar tentativas inválidas
+• Mensagens com nível `warn` para rastreabilidade sem interromper a execução
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+🧪 5. Testes Realizados
+• Requisição `GET /produtos/1` → Status 200 OK, retorno dos dados do produto
+• Requisição com ID não numérico → Retorno 400 Bad Request
+• Requisição com ID inexistente (ex: 6) → Retorno 404 Not Found
+• Visualização no terminal: rotas mapeadas e mensagens de aviso registradas
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+📚 6. Padrões e Recursos Utilizados
 
-## Observability
+| Componente | Função |
+|---|---|
+| `@Controller()` | 📦 Define prefixo e agrupa endpoints relacionados |
+| `@Get()` | 📡 Mapeia método HTTP GET para a função |
+| `@Param('id')` | 🔗 Extrai valor dinâmico da URL |
+| `BadRequestException` | ⚠️ Retorna status 400 — requisição inválida |
+| `NotFoundException` | 🔍 Retorna status 404 — recurso não encontrado |
+| `Logger` | 📋 Registra mensagens categorizadas no terminal |
+| `@Injectable()` | 🧩 Marca classe como provedora de serviço |
+| `find()` | 🔎 Pesquisa elemento em array por condição |
 
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
+📋 7. Exemplos de Resposta
 
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
+✅ Sucesso — `/produtos/1`:
+{
+  "id": 1,
+  "nome": "Feijão Timbiras",
+  "preco": 9.90
+}
 
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
+⚠️ Requisição Inválida — `/produtos/texto`:
+{
+  "statusCode": 400,
+  "mensagem": "O ID do produto deve ser um número inteiro."
+}
 
-To add it to this project:
+🔴 Não Encontrado — `/produtos/6`:
+{
+  "statusCode": 404,
+  "mensagem": "Produto com ID 6 não encontrado"
+}
 
-```bash
-$ npm install @nestjs/observe
-```
+💡 Conceitos Aprendidos
+• Separação de responsabilidades: Controller (rotas) ↔ Service (dados e lógica)
+• Uso de exceções nativas do NestJS para códigos HTTP padronizados
+• Validação de tipo antes de usar o valor recebido
+• Registro de eventos com `Logger` para depuração e monitoramento
+• Mensagens claras e objetivas para o consumidor da API
+• Estrutura de módulo centralizando dependências e instâncias
+• Respostas consistentes em caso de sucesso e falha
 
-Then follow the [setup guide](https://docs.nestjs.com/observability/overview) - it takes a single import and an app key.
+---
 
-The free plan needs no payment details and covers 300,000 events a month. You can also browse the [live demo](https://www.observe-demo.nestjs.com/dashboard) first - the whole dashboard over a busy service's data, with nothing to install.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observe](https://observe.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+🏁 Aplicação funcionando com tratamento completo de fluxos: dados encontrados, ID inválido e produto inexistente — todos com retorno padronizado e logs no terminal.
