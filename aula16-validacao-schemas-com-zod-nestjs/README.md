@@ -70,6 +70,7 @@ Implementar validação de dados de entrada usando schemas declarativos com a bi
      }
 
   ⚠️ Dados inválidos → Status 400:
+  
      {
        "statusCode": 400,
        "errors": [
