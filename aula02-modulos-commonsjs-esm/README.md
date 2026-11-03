@@ -100,7 +100,6 @@ Ao final da aula, foram aprendidos e praticados os seguintes conceitos:
 ---
 
 ## 📚 Aprendizados Principais
-
 > A Aula 2 foi fundamental para entender que **um projeto bem organizado começa pela estrutura correta dos arquivos base**. Separar responsabilidades (arquivo principal, configurações e utilitários) facilita muito a manutenção, a escalabilidade e o entendimento do código ao longo do desenvolvimento.
 
 Esses arquivos formam a base sólida sobre a qual serão adicionadas novas funcionalidades, dependências e frameworks (como o Express) nas próximas aulas.
