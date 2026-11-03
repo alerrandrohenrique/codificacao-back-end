@@ -30,6 +30,7 @@ Cabeçalhos aplicados em TODAS as respostas:
 - `Content-Type: application/json` → define formato de resposta
 
 ## ⚙️ Como Executar
+
 ```bash
 node servidor.js
 Saída no terminal:
