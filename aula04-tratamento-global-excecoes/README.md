@@ -26,6 +26,7 @@ Nesta aula foi criada uma aplicação com **Express.js** com foco no **tratament
 - Assim **toda a aplicação** responde erros do mesmo jeito, sem repetir código
 
 ## ⚙️ Como rodar
+
 ```bash
 # Instala as dependências (cria node_modules)
 npm install
