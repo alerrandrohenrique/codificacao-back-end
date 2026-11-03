@@ -55,6 +55,7 @@ Implementar documentação técnica interativa para API construída no NestJS, d
   • Clareza para quem consome: formato, exemplo e descrição juntos
 
 📦 7. Exemplos Visíveis
+
   ✅ Corpo esperado na requisição:
      {
        "nome": "Café Grão de Ouro 500g",
