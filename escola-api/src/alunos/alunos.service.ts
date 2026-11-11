@@ -20,8 +20,26 @@ export class AlunosService {
         const CreateAluno = new this.alunoModel(CreateAlunoDto);
         return CreateAluno.save();
     }
-    async findAll(): Promise<Aluno[]> {
-        return this.alunoModel.find().exec();
+    //async findAll(): Promise<Aluno[]> {
+        //return this.alunoModel.find().exec();
+    //}
+
+    //Metodo Para buscar alunos Paginação
+
+    async findPage(page:number, limit:number){
+        const skip = (page - 1) * limit;
+        const [data, total] = await Promise.all([
+            this.alunoModel.find().skip(skip).limit(limit).exec(),
+            this.alunoModel.countDocuments().exec(),
+        ]);
+        return {
+            data, meta:{
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total/limit),
+            },
+        }
     }
    async findOne(id: string): Promise <Aluno> {
         const aluno = await this.alunoModel.findById(id).exec();
@@ -32,8 +50,7 @@ export class AlunosService {
     }
     async update(id: string, updateAlunoDto: UpdateAlunoDto): Promise<Aluno> {
         const alunoAtualizado = await this.alunoModel.findByIdAndUpdate(id, updateAlunoDto, {
-            new: true 
-        }).exec();
+            new: true }).exec();
 
         if (!alunoAtualizado){
             throw new NotFoundException(`Aluno com ID ${id} não encontrado.`);
