@@ -1,0 +1,29 @@
+{
+    "texto": "começando as postagem de aparelhos eletronicos ",
+   "nome":"Poco X7 Ultra",
+   "autor":"Amazon prime",
+   "Preco":"4799.99",
+   "dataPostagem":"27-06-2024",
+   "estoque":"15",
+   "especificacoesTecnicas":{
+    "memoria ram":"16GB",
+    "processador":"snapdragon 9 elite",
+    "armazenamento":"256GB"
+   },
+   "tags":[
+    "PocoX7",
+    "Amazon prime",
+    "snapdragon 9 elite"
+   ],
+   "Curtidas":[
+    {"nome":"Nayra_gama"},
+    {"nome":"Paulo_alves"},
+    {"nome": "Emanuelly_brito"}
+   ],
+   "comentarios":[
+    {"autor": "emanuelly_brito", "texto":"preço bom", "data": "29-06-2024"},
+    {"autor": "Paulo_brito", "texto":"muy caro", "data": "02-07-2024"},
+    {"autor": "Nayra_gama", "texto":"meu salario", "data": "05-07-2024"}
+   ]
+
+}
