@@ -1,0 +1,19 @@
+{
+    "nome":"Gabriel Cardoso",
+    "nomeSocial":"Gabs Rodrigues",
+    "matricula":"2026TISENAI02",
+    "dataNascimento":"2007-04-26",
+    "curso":"Tecnico em Desenvolvimento de sistema",
+    "Disciplinas":[
+        {"nome":"Banco de Dados", "nota": 9.5},
+        {"nome":"Desenvolvimento WEB", "nota": 8.8}
+    ],
+    "endereco":{
+        "Rua":"Rua das Flores",
+        "Numero":123,
+        "Bairro":"centro",
+        "Cidade":"Macapá",
+        "Estado":"Amapá",
+        "CEP":"68909030"
+    }
+}
