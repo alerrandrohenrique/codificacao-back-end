@@ -1,0 +1,16 @@
+{
+    "nome":"Notebook ultrabook X1",
+    "categoria":"Informática",
+    "preco":"3899.99",
+    "estoque":"20",
+    "especificacoesTenicas":{
+        "ram":"32GB",
+        "processador":"Intel Core i7 14700HS",
+        "armazenamento":"1TB"
+    },
+    "tags":[
+      "Notebook",
+      "ultrabook",
+      "Informática"
+    ]
+}
