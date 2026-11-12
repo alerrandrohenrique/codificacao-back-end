@@ -42,7 +42,7 @@ create(@Body() CreateAlunoDto: CreateAlunoDto){
 //}
 @Get()
 @ApiOperation({
-    summary:'listar alunos com paginação',
+    summary:'listar alunos com paginação, filtros opcionais e ordenação',
 })
 
 @ApiResponse({
@@ -84,15 +84,31 @@ create(@Body() CreateAlunoDto: CreateAlunoDto){
     description: 'Filtrar alunos por curso (exemplo: Informatica)'
 
 })
+@ApiQuery({
+    name: 'orderBy',
+    required: false,
+    type: String,
+    description:'campos (exemplo: nome, idade, matricula e curso)'
+})
+@ApiQuery({
+    name: 'orderDirection',
+    required: false,
+    enum:[
+        'asc',
+        'desc'
+    ],
+    description: '(asc) para crescente e (desc) pra decrescente',
+})
 
-
-findPage(
+findPagefilter(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
-        @Query('nome') nome?:string,
-        @Query('curso') curso?:string,
+        @Query('nome') nome?: string,
+        @Query('curso') curso?: string,
+        @Query('orderBy') orderBy?: string,
+        @Query('orderDirection') orderDirection?: 'asc' | 'desc',
     ) {
-        return this.alunosService.findPage(page, limit, nome, curso);
+        return this.alunosService.findPagefilter(page, limit, nome, curso, orderBy, orderDirection);
     }
 
 @Get(':id')
