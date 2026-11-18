@@ -34,7 +34,9 @@ export class AlunosService {
     }
 
     // async findAll(): Promise <Aluno[]> {
+    
     //     return this.alunoModel.find().exec();
+
     // }  
 
     //! Método para buscar todos os alunos com paginação
