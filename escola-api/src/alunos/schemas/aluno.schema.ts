@@ -39,5 +39,6 @@ export class Aluno {
         default:true
      })
      ativo: boolean
+     
 }
 export const AlunoSchema = SchemaFactory.createForClass(Aluno);
