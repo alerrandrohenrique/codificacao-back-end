@@ -1,9 +1,12 @@
 import { Controller, Inject, Module } from '@nestjs/common';
-
+import type { ConfigType } from '@nestjs/config';
 import { AlunosModule } from './alunos/alunos.module.js';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ConfigModule, ConfigService, } from '@nestjs/config'
 import Joi from 'joi'
+import databaseConfig from './Config/database.config.js';
+import authConfig from './Config/auth.config.js';
+
 
 @Module({
   imports: [
@@ -11,6 +14,7 @@ import Joi from 'joi'
     AlunosModule,
     ConfigModule.forRoot({
       isGlobal:true,
+      load: [databaseConfig, authConfig],
       validationSchema: Joi.object({
         NODE_ENV: Joi.string().valid('development', 'production', 'test')
         .default('development'),
@@ -22,10 +26,12 @@ import Joi from 'joi'
     }),
     MongooseModule.forRootAsync({
       imports:[ConfigModule],
-      inject:[ConfigService],
-      useFactory:(configService: ConfigService) => ({
-        uri: configService.get<string>('DATABASE_URI'),
+      
+      useFactory:(dbConfig: ConfigType<typeof databaseConfig>) => ({
+        uri: dbConfig.uri,
+        maxPoolSize: dbConfig.maxPoolSize
       }),
+      inject:[databaseConfig.KEY]
     }),
   ],
   controllers:[],
